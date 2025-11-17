@@ -15,12 +15,12 @@ const {publicKey, privateKey} = crypto.generateKeyPairSync('rsa', {
 })
 
 //Guardar llaves en archivos
-fs.writeFileSync('public_key.pem', publicKey)
-fs.writeFileSync('private_key.pem', privateKey)
+fs.writeFileSync(config.publicKeyPath, publicKey)
+fs.writeFileSync(config.privateKeyPath, privateKey)
 
 console.log('Llaves creadas con exito');
-console.log(' - public_key.pem');
-console.log(' - private_key.pem');
+console.log(` - config.publicKeyPath`);
+console.log(` - config.privateKeyPath`);
 console.log('\n Llave Publica: ');
 console.log(publicKey);
 console.log('\n Llave Privada: ');

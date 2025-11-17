@@ -6,7 +6,8 @@ dotenv.config();
 const config = {
     port: process.env.PORT || 3000,
     publicKeyPath: process.env.PUBLIC_KEY_PATH || './keys/public_key.pem',
-    privateKeyPath: process.env.PRIVATE_KEY_PATH || './keys/private_key.pem'
+    privateKeyPath: process.env.PRIVATE_KEY_PATH || './keys/private_key.pem',
+    apiPrefix: process.env.API_PREFIX || '/api/v1',
 }
 
 //Validacion de Claves

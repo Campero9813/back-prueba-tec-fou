@@ -25,8 +25,9 @@ router.get('/', (req, res) => {
             'GET /public-key': 'Obtener Llave Publica',
             'GET /healt': 'Estado del servicio',
         },
-        algorithm: 'RSA/EBC/PKCS1Padding',
-        ancoding: 'UTF-8'
+        algorithm: 'RSA/EBC/PKCS1_OAEP_PADDING',
+        ancoding: 'UTF-8',
+        note: 'Usamos PKCS1_OAEP_PADDING para compatibilidad con Node.js Moderno'
     })
 })
 

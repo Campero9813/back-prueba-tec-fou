@@ -1,5 +1,6 @@
 const fs = require('fs')
 const crypto = require('crypto')
+const config = require('./config/env')
 
 //Generacion de claves
 const {publicKey, privateKey} = crypto.generateKeyPairSync('rsa', {

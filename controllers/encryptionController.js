@@ -25,7 +25,7 @@ const encryptText = (req, res) => {
         res.json({
             original: textoToEncrypt,
             encrypted: encrypted,
-            algorithm: 'RSA/EBC/PKCS1Padding',
+            algorithm: 'RSA/EBC/PKCS1_OAEP_PADDING',
             encoding: 'UTF-8',
             format: 'base64',
             timestamp: new Date().toISOString()
@@ -68,7 +68,7 @@ const decryptText = (req, res) => {
         res.json({
             encrypted: encryptedText,
             decrypted: decrypted,
-            algorithm: 'RSA/ECB/PKCS1Padding',
+            algorithm: 'RSA/ECB/PKCS1_OAEP_PADDING',
             encoding: 'UTF-8',
             timestamp: new Date().toISOString()
         })

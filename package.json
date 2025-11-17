@@ -1,13 +1,15 @@
 {
   "name": "back-njs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sericio de Encriptacion con RSA",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "node app.js",
+    "test": "node test-service.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alejandro Campero Angel",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

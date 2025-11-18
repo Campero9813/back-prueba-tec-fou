@@ -28,11 +28,10 @@ Paso 5: Ejecutamos el proyecto
 npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running tests
 
-Puedes ejecutar este comando para visualiza runas pruebas sencillas de los componentes creados como, el service, el input-component, y el app principal
+Podemos ejecutar estas pruebas para visualizar un pequeño archivio que valida las llaves privadas, y hace la encriptación y la desencriptacion
 
 ```bash
 ng test

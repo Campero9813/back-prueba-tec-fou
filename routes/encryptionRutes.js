@@ -26,6 +26,7 @@ router.get('/', (req, res) => {
             'GET /healt': 'Estado del servicio',
         },
         algorithm: 'RSA/EBC/PKCS1_OAEP_PADDING',
+        library: 'node-rsa',
         ancoding: 'UTF-8',
         note: 'Usamos PKCS1_OAEP_PADDING para compatibilidad con Node.js Moderno'
     })

@@ -20,12 +20,13 @@ const encryptText = (req, res) => {
         }
 
         //Encriptado Nativo
-        const encrypted = cryptoUtils.encryptRSA(textoToEncrypt);
+        //const encrypted = cryptoUtils.encryptRSA(textoToEncrypt);
+        const encrypted = cryptoUtils.encryptRSAWithNodeRSA(textoToEncrypt);
 
         res.json({
             original: textoToEncrypt,
             encrypted: encrypted,
-            algorithm: 'RSA/EBC/PKCS1_OAEP_PADDING',
+            algorithm: 'RSA/ECB/PKCS1_OAEP_PADDING',
             encoding: 'UTF-8',
             format: 'base64',
             timestamp: new Date().toISOString()
@@ -46,9 +47,9 @@ const decryptText = (req, res) => {
 
         //Formatos de entrada
         if (typeof req.body === 'string') {
-            encryptText = req.body
-        } else if(req.body.encrypted) {
-            encryptText = req.body.encrypted;
+            encryptedText = req.body
+        } else if(req.body && req.body.encrypted) {
+            encryptedText = req.body.encrypted;
         } else {
             return res.status(400).json({
                 error: 'Se requiere un texto encriptado para desencriptar',
@@ -56,14 +57,15 @@ const decryptText = (req, res) => {
             })
         }
 
-        if (!necryptedText || encryptedText.trim() === '') {
+        if (!encryptedText || encryptedText.trim() === '') {
             return res.status(400).json({
                 error: 'El texto encriptado no puede estar vacio'
             })
         }
 
         //Desencriptar nativo
-        const decrypted = cryptoUtils.decryptRSA(encryptText);
+        //const decrypted = cryptoUtils.decryptRSA(encryptText);
+        const decrypted = cryptoUtils.decryptRSAWithNodeRSA(encryptedText);
 
         res.json({
             encrypted: encryptedText,
@@ -105,7 +107,7 @@ const healtCheck = (req, res) => {
         service: 'Servicio de Encriptado RSA',
         keys: keyStatus ? 'OK' : 'ERROR',
         timestamp: new Date().toISOString(),
-        endpoint: {
+        endpoints: {
             encrypt: 'POST /encrypt',
             decrypt: 'POST /decrypt',
             healt: 'GET /health',

@@ -4,7 +4,7 @@ const cryptoUtils = require('./utils/encryptUtils');
 function testEncryptionDecryption() {
   console.log('Probando encriptación/desencriptación con OAEP...\n');
   
-  const testText = "Prueba1998";
+  const testText = "prueba1998";
   
   try {
     // Mostrar texto original
@@ -16,13 +16,13 @@ function testEncryptionDecryption() {
     
     // Encriptar con RSA
     console.log('\nEncriptando con RSA...');
-    const encrypted = cryptoUtils.encryptRSA(testText);
+    const encrypted = cryptoUtils.encryptRSAWithNodeRSA(testText);
     console.log('Texto encriptado (base64):', encrypted);
     console.log('Longitud del texto encriptado:', encrypted.length, 'caracteres base64');
     
     // Desencriptar
     console.log('\nDesencriptando...');
-    const decrypted = cryptoUtils.decryptRSA(encrypted);
+    const decrypted = cryptoUtils.decryptRSAWithNodeRSA(encrypted);
     console.log('Texto desencriptado:', decrypted);
     
     // Verificar

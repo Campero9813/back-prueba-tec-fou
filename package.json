@@ -6,13 +6,14 @@
   "scripts": {
     "start": "node app.js",
     "dev": "node app.js",
-    "test": "node test-service.js"
+    "test": "node test-fixed.js"
   },
   "keywords": [],
   "author": "Alejandro Campero Angel",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",

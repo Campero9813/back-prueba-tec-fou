@@ -2,34 +2,60 @@ const express = require('express');
 const config = require ('./config/env');
 const encryptionRoutes = require('./routes/encryptionRutes');
 const cryptoUtils = require('./utils/encryptUtils');
+const cors= require('cors')
 
 const app = express()
 const PORT = config.port
 
+
+//Cors
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}))
+
 //Middleware
 app.use(express.json({ limit: '10mb' }))
 app.use(express.text({ limit: '10mb' }))
+
+
+//Logging de request
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} -  ${req.method} ${req.originalUrl}`)
+    next()
+})
 
 // Usar el prefijo de API
 app.use(config.apiPrefix, encryptionRoutes);
 
 // Ruta raíz
 app.get('/', (req, res) => {
-  res.redirect(config.apiPrefix);
+  res.json({
+    message: 'Ruta Raiz',
+    version: '0.0.1',
+    documentation: `${config.apiPrefix}`,
+    note: 'Visita la ruta de documentacion para ver los endpoints'
+  })
 });
 
 //Rutas no encontradas
-app.use('*', (req, res) => {
-    res.status(404).json({
-        error: 'Endpoint no encontrado',
-        message: `La ruta ${req.originalUrl} no existe`,
-        availableEndpoints: {
-            [`POST ${config.apiPrefix/encrypt}`]: 'Encriptar Texto',
-            [`POST ${config.apiPrefix/decrypt}`]: 'Encriptar Texto',
-            [`GET ${config.apiPrefix/healt}`]: 'Encriptar Texto',
-            [`GET ${config.apiPrefix/public-key}`]: 'Encriptar Texto',
-        }
-    })
+app.use((req, res, next) => {
+    if (!res.headersSent) {
+        res.status(404).json({
+            error: 'Endpoint no encontrado',
+            message: `La ruta ${req.originalUrl} no existe`,
+            availableEndpoints: {
+                [`POST ${config.apiPrefix}/encrypt`]: 'Encriptar Texto',
+                [`POST ${config.apiPrefix}/decrypt`]: 'Encriptar Texto',
+                [`GET ${config.apiPrefix}/healt`]: 'Encriptar Texto',
+                [`GET ${config.apiPrefix}/public-key`]: 'Encriptar Texto',
+            }
+        })    
+    } else {
+        next();
+    }
+    
 })
 
 
@@ -54,10 +80,10 @@ if (!cryptoUtils.verifyKeys()) {
 app.listen(PORT, () => {
     console.log(`Servidor iniciado en el puerto: ${PORT}`);
     console.log('\n Enpoints Disponibles');
-    console.log(`POST ${api.apiPrefix}/encrypt - Encriptar`);
-    console.log(`POST ${api.apiPrefix}/decrypt - Desencriptar`);
-    console.log(`GET ${api.apiPrefix}/healt - Estado del servicio`);
-    console.log(`GET ${api.apiPrefix}/public-key - Obtener Llave Publica`);
+    console.log(`POST ${config.apiPrefix}/encrypt - Encriptar`);
+    console.log(`POST ${config.apiPrefix}/decrypt - Desencriptar`);
+    console.log(`GET ${config.apiPrefix}/health - Estado del servicio`);
+    console.log(`GET ${config.apiPrefix}/public-key - Obtener Llave Publica`);
 })
 
 module.exports = app;

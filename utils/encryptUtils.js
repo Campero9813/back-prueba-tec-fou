@@ -77,7 +77,7 @@ function verifyKeys(){
     try {
         const testText= "test";
         const encrypted = encryptRSA(testText);
-        const decrypted = encryptRSA(encrypted);
+        const decrypted = decryptRSA(encrypted);
 
         return testText === decrypted;
     } catch (error) {
